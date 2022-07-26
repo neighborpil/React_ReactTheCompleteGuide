@@ -1,3 +1,4 @@
+import React from "react";
 import Expenses from "./components/Expenses";
 
 function App() {
@@ -9,9 +10,21 @@ function App() {
 		{ id: 'e4', title: 'Car Insurance4', amount: 291.67, date: new Date(2022, 7, 20)},
 	]
 
-    return (
-        <Expenses expenses={expenses}/>
+	return (
+		<div>
+            <h2>Let's get started!</h2>
+	        <Expenses items={expenses}/>
+		</div>
     );
+
+	/* This is the reason why return just one element. */
+	// return React.createElement(
+	// 	'div', 
+	// 	{}, 
+	// 	React.createElement('h2', {}, "Let's get started!"),
+	// 	React.createElement(Expenses, {items: expenses})
+	// );
+    
 }
 
 export default App;
