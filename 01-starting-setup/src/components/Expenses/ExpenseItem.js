@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import './ExpenseItem.css';
 import Card from '../UI/Card';
 import ExpenseDate from './ExpenseDate';
 
 function ExpenseItem(props) {
 
-	let title = props.title;
+	const [title, setTitle] = useState(props.title);
 
 	const clickHandler = () => {
-		title = 'Updated';
-		console.log(title);
+		setTitle('Updated');
+		console.log(title); // 여기서는 기존의 값이 표시된다
 	}
 
 	return (
