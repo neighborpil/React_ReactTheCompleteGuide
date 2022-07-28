@@ -6,20 +6,28 @@ import './Expenses.css';
 
 const Expenses = (props) => {
 
-    const items = props.items;
     const [filteredYear, setFilteredYear] = useState('2020');
 
     const changeYearHandler = (changedYear) => {
         setFilteredYear(changedYear);
+        console.log(parseInt(filteredYear));
     }
 
+    
     return (
         <div>
             <Card className="expenses">
                 <ExpensesFilter selected={filteredYear} onChangeYear={changeYearHandler}/>
-                {props.items.map(expense => 
-                    <ExpenseItem title={expense.title} amount={expense.amount} date={expense.date}/>
-                )}
+                {props.items
+                    .filter(expense => expense.date.getFullYear() === parseInt(filteredYear))
+                    .map(expense => {
+                    <ExpenseItem 
+                        key={expense.id} 
+                        title={expense.title} 
+                        amount={expense.amount} 
+                        date={expense.date}/>
+                    })
+                }
             </Card>
         </div>
         
