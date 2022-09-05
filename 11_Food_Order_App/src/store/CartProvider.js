@@ -16,7 +16,7 @@ const cartReducer = (state, action) => {
             totalAmount: updatedTotalAmount
         };
     } else if(action.tpe === 'REMOVE') {
-
+    
     }
     return defaultCartState;
 };
@@ -31,8 +31,6 @@ const CartProvider = props => {
 
     const removeItemToCartHandler = id => {
         dispatchCartAction({type: 'REMOVE', id: id});
-    };
-
     };
 
     const cartContext = {
