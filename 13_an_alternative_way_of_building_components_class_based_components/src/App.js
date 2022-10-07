@@ -1,9 +1,12 @@
 import Users from './components/Users';
+import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
   return (
     <div>
-      <Users />
+      <ErrorBoundary>
+        <Users />
+      </ErrorBoundary>
     </div>
   );
 }

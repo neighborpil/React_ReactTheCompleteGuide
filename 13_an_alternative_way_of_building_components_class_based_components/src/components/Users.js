@@ -21,6 +21,9 @@ class Users extends Component {
 
   toggleUsersHandler() {
     // this.setState({showUsers: false});
+
+    throw new Error('error occured');
+
     this.setState((curState) => {
       return { showUsers: !curState.showUsers };
     })
