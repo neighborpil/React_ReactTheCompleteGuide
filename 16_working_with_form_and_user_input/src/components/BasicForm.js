@@ -8,7 +8,7 @@ const BasicForm = (props) => {
     const {
         value: enteredFirstName,
         isValid: enteredFirstNameIsValid,
-        hasError: firstNameInputHasError,
+        hasError: firstNameHasError,
         valueChangeHandler: firstNameChangeHandler,
         inputBlurHandler: firstNameBlurHandler,
         reset: resetFirstName
@@ -17,7 +17,7 @@ const BasicForm = (props) => {
     const {
         value: enteredLastName,
         isValid: enteredLastNameIsValid,
-        hasError: lastNameInputHasError,
+        hasError: lastNameHasError,
         valueChangeHandler: lastNameChangeHandler,
         inputBlurHandler: lastNameBlurHandler,
         reset: resetLastName
@@ -26,7 +26,7 @@ const BasicForm = (props) => {
     const {
         value: enteredEmail,
         isValid: enteredEmailIsValid,
-        hasError: emailInputHasError,
+        hasError: emailHasError,
         valueChangeHandler: emailChangeHandler,
         inputBlurHandler: emailBlurHandler,
         reset: resetEmail
@@ -41,24 +41,21 @@ const BasicForm = (props) => {
     const formSubmissionHandler = event => {
         event.preventDefault();
 
-        if (!enteredFirstName) {
+        if (!formIsValid) {
             return;
         }
-        if (!enteredLastName) {
-            return;
-        }
-        if (!enteredEmail) {
-            return;
-        }
+
+        console.log('Submitted');
+        console.log(`${enteredFirstName} ${enteredLastName} ${enteredEmail}`)
 
         resetFirstName();
         resetLastName();
         resetEmail();
     };
 
-    const firstNameClasses = firstNameInputHasError ? 'form-control invalid' : 'form-control';
-    const lastNameClasses = lastNameInputHasError ? 'form-control invalid' : 'form-control';
-    const emailClasses = emailInputHasError ? 'form-control invalid' : 'form-control';
+    const firstNameClasses = firstNameHasError ? 'form-control invalid' : 'form-control';
+    const lastNameClasses = lastNameHasError ? 'form-control invalid' : 'form-control';
+    const emailClasses = emailHasError ? 'form-control invalid' : 'form-control';
 
     return (
         <form onSubmit={formSubmissionHandler}>
@@ -70,7 +67,7 @@ const BasicForm = (props) => {
                            onChange={firstNameChangeHandler}
                            onBlur={firstNameBlurHandler}
                            value={enteredFirstName}/>
-                    {firstNameInputHasError && <p className="error-text">First Name must not empty.</p>}
+                    {firstNameHasError && <p className="error-text">First Name must not empty.</p>}
                 </div>
                 <div className={lastNameClasses}>
                     <label htmlFor='lastName'>Last Name</label>
@@ -79,7 +76,7 @@ const BasicForm = (props) => {
                            onChange={lastNameChangeHandler}
                            onBlur={lastNameBlurHandler}
                            value={enteredLastName}/>
-                    {lastNameInputHasError && <p className="error-text">Last name must not empty.</p>}
+                    {lastNameHasError && <p className="error-text">Last name must not empty.</p>}
                 </div>
             </div>
             <div className={emailClasses}>
@@ -89,7 +86,7 @@ const BasicForm = (props) => {
                        onChange={emailChangeHandler}
                        onBlur={emailBlurHandler}
                        value={enteredEmail}/>
-                {emailInputHasError && <p className="error-text">Please enter valid email.</p>}
+                {emailHasError && <p className="error-text">Please enter valid email.</p>}
             </div>
             <div className='form-actions'>
                 <button disabled={!formIsValid}>Submit</button>
