@@ -61,3 +61,9 @@ store.dispatch({type: 'decrement'});
 
 
 ```
+
+### Installing redux on react app
+```
+% npm install redux react-redux
+
+```
