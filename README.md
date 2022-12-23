@@ -67,3 +67,12 @@ store.dispatch({type: 'decrement'});
 % npm install redux react-redux
 
 ```
+
+### Installing redux toolkit
+```
+% npm install @reduxjs/toolkit
+
+or
+
+% yarn add @reduxjs/toolkit
+```
