@@ -76,3 +76,8 @@ or
 
 % yarn add @reduxjs/toolkit
 ```
+
+### Installing React Router
+```
+% npm install react-router-dom
+```
