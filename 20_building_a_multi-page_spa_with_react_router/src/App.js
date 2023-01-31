@@ -3,6 +3,8 @@ import HomePage from "./pages/Home";
 import ProductsPages from "./pages/Products";
 import Products from "./pages/Products";
 import RootLayout from "./pages/Root";
+import ErrorPage from "./pages/Error";
+import ProductDetailPage from "./pages/ProductDetail";
 
 // // order version
 // const routeDefinitions = createRoutesFromElements(
@@ -18,9 +20,12 @@ const router = createBrowserRouter([
     {
         path: '/',
         element: <RootLayout/>,
+        errorElement: <ErrorPage/>,
         children: [
-            {path: '/', element: <HomePage/>},
-            {path: '/products', element: <ProductsPages/>},
+            {index: true, element: <HomePage/>}, // same as path: ''
+            // {path: '', element: <HomePage/>},
+            {path: 'products', element: <ProductsPages/>},
+            {path: 'products/:productId', element: <ProductDetailPage/>},
         ]
     },
 ]);
