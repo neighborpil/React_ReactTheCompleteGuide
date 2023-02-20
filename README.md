@@ -81,3 +81,11 @@ or
 ```
 % npm install react-router-dom
 ```
+
+
+### How to make next-js app
+```
+% npx create-next-app
+
+% yarn create next-app
+```
