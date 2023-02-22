@@ -17,10 +17,23 @@ const DUMMY_MEETUPS = [
     }
 ]
 
-function HomePage() {
+function HomePage(props) {
+
     return (
-        <MeetupList meetups={DUMMY_MEETUPS}/>
+        <MeetupList meetups={props.meetups}/>
     );
+}
+
+// This is reserved name for static pre-rendering process
+// this code is executed during the build process
+export async function getStaticProps() {
+    // fetch data from an API
+    return {
+        props: {
+            meetups: DUMMY_MEETUPS
+        }
+    };
+
 }
 
 export default HomePage;
