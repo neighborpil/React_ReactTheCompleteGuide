@@ -24,16 +24,28 @@ function HomePage(props) {
     );
 }
 
-// This is reserved name for static pre-rendering process
-// this code is executed during the build process
-export async function getStaticProps() {
-    // fetch data from an API
+export async function getServerSideProps(context) {
+    const req = context.req;
+    const res = context.res;
+
+    // fetch data from API
     return {
         props: {
             meetups: DUMMY_MEETUPS
         }
-    };
-
+    }
 }
+
+// This is reserved name for static pre-rendering process
+// this code is executed during the build process
+// export async function getStaticProps() {
+//     // fetch data from an API
+//     return {
+//         props: {
+//             meetups: DUMMY_MEETUPS
+//         },
+//         revalidate: 1 // every 1 second, server will build new static props
+//     };
+// }
 
 export default HomePage;
