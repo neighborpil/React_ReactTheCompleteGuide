@@ -1,21 +1,5 @@
 import MeetupList from "../components/meetups/MeetupList";
-
-const DUMMY_MEETUPS = [
-    {
-        id: 'm1',
-        title: 'A First Meetup',
-        image: 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
-        address: 'Some address 5, 12345, city',
-        description: 'This is a first meetup',
-    },
-    {
-        id: 'm2',
-        title: 'A Second Meetup',
-        image: 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
-        address: 'Some address 3, 12345, city',
-        description: 'This is a second meetup',
-    }
-]
+import {MongoClient} from "mongodb";
 
 function HomePage(props) {
 
@@ -24,28 +8,41 @@ function HomePage(props) {
     );
 }
 
-export async function getServerSideProps(context) {
-    const req = context.req;
-    const res = context.res;
+// export async function getServerSideProps(context) {
+//   const req = context.req;
+//   const res = context.res;
 
-    // fetch data from API
-    return {
-        props: {
-            meetups: DUMMY_MEETUPS
-        }
-    }
-}
+//   // fetch data from an API
 
-// This is reserved name for static pre-rendering process
-// this code is executed during the build process
-// export async function getStaticProps() {
-//     // fetch data from an API
-//     return {
-//         props: {
-//             meetups: DUMMY_MEETUPS
-//         },
-//         revalidate: 1 // every 1 second, server will build new static props
-//     };
+//   return {
+//     props: {
+//       meetups: DUMMY_MEETUPS
+//     }
+//   };
 // }
+
+export async function getStaticProps() {
+  // fetch data from an API
+
+  const client = await MongoClient.connect('mongodb+srv://neighborpil:O4iC6SK2c1DljxQX@cluster0.yjchtin.mongodb.net/meetups?retryWrites=true&w=majority')
+  const db = client.db();
+  const meetupsCollection = db.collection('meetups');
+
+  const meetups = await meetupsCollection.find().toArray();
+
+  client.close();
+
+  return {
+    props: {
+      meetups: meetups.map(meetup => ({
+        title: meetup.title,
+        address: meetup.address,
+        image: meetup.image,
+        id: meetup._id.toString(),
+      }))
+    },
+    revalidate: 1
+  };
+}
 
 export default HomePage;
