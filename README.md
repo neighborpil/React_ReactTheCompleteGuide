@@ -89,3 +89,9 @@ or
 
 % yarn create next-app
 ```
+
+### Install mongodb package
+```
+% npm install mongodb
+
+```
