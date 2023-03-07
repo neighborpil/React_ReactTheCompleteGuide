@@ -1,10 +1,20 @@
 import MeetupList from "../components/meetups/MeetupList";
 import {MongoClient} from "mongodb";
+import Head from "next/head";
 
 function HomePage(props) {
 
     return (
-        <MeetupList meetups={props.meetups}/>
+        <>
+            <Head>
+                <title>React Meetups</title>
+                <meta
+                    name={"description"}
+                    content={"Browse a hue list of higly active React meetups!"}
+                />
+            </Head>
+            <MeetupList meetups={props.meetups}/>
+        </>
     );
 }
 
@@ -22,27 +32,27 @@ function HomePage(props) {
 // }
 
 export async function getStaticProps() {
-  // fetch data from an API
+    // fetch data from an API
 
-  const client = await MongoClient.connect('mongodb+srv://neighborpil:O4iC6SK2c1DljxQX@cluster0.yjchtin.mongodb.net/meetups?retryWrites=true&w=majority')
-  const db = client.db();
-  const meetupsCollection = db.collection('meetups');
+    const client = await MongoClient.connect('mongodb+srv://neighborpil:O4iC6SK2c1DljxQX@cluster0.yjchtin.mongodb.net/meetups?retryWrites=true&w=majority')
+    const db = client.db();
+    const meetupsCollection = db.collection('meetups');
 
-  const meetups = await meetupsCollection.find().toArray();
+    const meetups = await meetupsCollection.find().toArray();
 
-  client.close();
+    client.close();
 
-  return {
-    props: {
-      meetups: meetups.map(meetup => ({
-        title: meetup.title,
-        address: meetup.address,
-        image: meetup.image,
-        id: meetup._id.toString(),
-      }))
-    },
-    revalidate: 1
-  };
+    return {
+        props: {
+            meetups: meetups.map(meetup => ({
+                title: meetup.title,
+                address: meetup.address,
+                image: meetup.image,
+                id: meetup._id.toString(),
+            }))
+        },
+        revalidate: 1
+    };
 }
 
 export default HomePage;
