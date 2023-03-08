@@ -95,3 +95,8 @@ or
 % npm install mongodb
 
 ```
+
+### react-transition-group package
+```
+npm install react-transition-group --save
+```
